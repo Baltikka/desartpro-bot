@@ -1,14 +1,17 @@
+# -*- coding: utf-8 -*-
+import os
 import telebot
 from telebot import types
 
+#-----Config vars-----
+token = os.environ['TELEGRAM_TOKEN']
+adminchat = os.environ['ADMIN_CHAT_ID']
 
-token = '5349008490:AAFAwwI-xZC6gj698WxBL5W4kjFBuHBQvdA'
-adminchat = "-685829143"
 targetchat = "0"
 
 bot = telebot.TeleBot(token)
 
-#-----FUNCTIONS---
+#-----FUNCTIONS-----
 
 def extract_arg(arg):
     return arg.split()[1]
@@ -61,9 +64,9 @@ Creative Studio Desart.pro
 vk: vk.com/desartpro
 tg: @desartpro""")
     elif message.text=="Оставить отзыв":
-        bot.send_message(message.chat.id,"Тут ссылка на отзывы")
+        bot.send_message(message.chat.id,"@desartpro_feedback")
     elif message.text=="Открыть портфолио":
-        bot.send_message(message.chat.id,"Тут ссылка на портфолио")
+        bot.send_message(message.chat.id,"@desartpro")
     elif message.text=="Заполнить бриф":
         markup = types.ReplyKeyboardMarkup(row_width = 2)
         item1 = types.KeyboardButton("Бриф дизайна")
@@ -77,7 +80,7 @@ tg: @desartpro""")
         bot.send_message(message.chat.id,"https://forms.gle/zCcJYDDef3W3KnEG6")
         showmenu(message)
     else:
-        bot.send_message(adminchat, '{message.chat.id}\n@{message.from_user.username}\n{message.from_user.first_name} {message.from_user.last_name}')
+        bot.send_message(adminchat, f'{message.chat.id}\n@{message.from_user.username}\n{message.from_user.first_name} {message.from_user.last_name}')
         bot.forward_message(adminchat, message.chat.id, message.message_id, message.from_user.username)
 
 bot.infinity_polling()
